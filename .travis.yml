@@ -1,0 +1,22 @@
+language: python
+python:
+# There seems to be some issue with pyp3 + psutil. Travis says
+#   Error importing unittest: unable to load extension module [...]
+#       /home/travis/virtualenv/pypy3-2.4.0/site-packages/psutil/_psutil_linux.pypy3-24.so: undefined symbol: PyModule_GetState
+#  - "pypy3"
+  - "pypy"
+  - "2.6"
+  - "2.7"
+  - "3.3"
+  - "3.4"
+  - "3.5"
+  - "3.6"
+
+install:
+  - pip install pybuilder psutil
+  - pip install coveralls
+  - pyb install_dependencies
+  
+script: "pyb verify -X"
+after_success:
+  - coveralls --verbose
